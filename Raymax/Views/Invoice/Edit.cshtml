@@ -1,0 +1,166 @@
+﻿@model Raymax.Models.ViewModels.EditInvoiceViewModel
+
+@{
+    ViewData["Title"] = "Update";
+    //Layout = null;
+}
+
+<body>
+    <div class="container container-invoice">
+        <form asp-action="Create" id="invoice-form" method="post" class="invoice-form" role="form" novalidate="">
+            <div class="load-animate animated fadeInUp">
+                <div class="row">
+                    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-center">
+                        <h1>Update Invoice</h1>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <label asp-for="Invoice.CustomerName" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-7">
+                                    <input asp-for="Invoice.CustomerName" class="form-control" id="companyName" placeholder="Customer Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label asp-for="Invoice.Contact" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Invoice.Contact" class="form-control" id="companyName" placeholder="Mobile Number">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label asp-for="Invoice.Address" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Invoice.Address" class="form-control" rows="3" id="address" placeholder="Customer Address">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-2">
+                                    <label asp-for="Invoice.Date_Created" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-10">
+                                    <input asp-for="Invoice.Date_Created" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12 col-sm-4 col-md-4 col-lg-4 pull-right">
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                        <table class="table table-bordered table-hover" id="invoiceItem">
+                            <tr>
+                                
+                                <th width="15%">Product No</th>
+                                <th width="38%">Description</th>
+                                <th width="15%">Quantity</th>
+                                <th width="15%">Unit Price</th>
+                                <th width="15%">Total Price</th>
+                            </tr>
+
+                            @{
+
+                                var count = Model.Invoice.Products.Count();
+                                for (int i = 0; i < count; i++)
+                                {
+                                    <tr>
+                                        
+                                        <td><input asp-for="Invoice.Products[i].ProductID" id="productCode_1" class="form-control"></td>
+                                        <td><input asp-for="Invoice.Products[i].Description" id="productName_1" class="form-control"></td>
+                                        <td><input asp-for="Invoice.Products[i].Quantity" id="quantity_1" class="form-control quantity"></td>
+                                        <td><input asp-for="Invoice.Products[i].UnitPrice" id="price_1" class="form-control"></td>
+                                        <td><input asp-for="Invoice.Products[i].TotalPrice" id="total_1" class="form-control total"></td>
+
+                                    </tr>
+                                }
+                            }
+
+                        </table>
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-xs-12 col-sm-8 col-md-7 col-lg-7">
+                        <div class="form-group">
+                            <input type="submit" asp-route-id="@Model.Invoice.ID" value="Update Invoice" class="btn btn-success submit_btn invoice-save-btm">
+                            <a class="btn btn-success submit_btn invoice-save-btm" asp-action="Index">Back to List</a>
+                        </div>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-5 col-md-5 col-lg-5">
+                        <br />
+                        <br />
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label asp-for="Invoice.Subtotal" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Invoice.Subtotal" class="form-control " name="subTotal" id="subTotal">
+                                </div>
+                            </div>
+                        </div>
+
+                        <input hidden asp-for="Invoice.TaxRate" value="0" class="form-control" name="taxRate" id="taxRate">
+
+                        <input hidden asp-for="Invoice.TaxAmount" value="0" class="form-control" name="taxAmount" id="taxAmount">
+
+                        <input hidden asp-for="Invoice.GrandTotal" class="form-control" id="totalAftertax">
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label asp-for="Invoice.Amount_Paid" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Invoice.Amount_Paid" class="form-control" id="amountPaid">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <label asp-for="Invoice.Amount_Due" class="col-form-label"></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <input asp-for="Invoice.Amount_Due" class="form-control" id="amountDue">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </form>
+    </div>
+</body>
+
+@section Scripts {
+    <script>
+        tinymce.init({
+            selector: 'textarea',
+            plugins: "lists",
+            menubar: 'file edit format'
+        });
+    </script>
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

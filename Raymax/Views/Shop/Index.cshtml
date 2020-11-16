@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Raymax.Models.Terms>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+<div class="border backgroundWhite" style="padding:30px;border-radius:10px;">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info"> Terms List</h2>
+        </div>
+        <div class="col-6 text-right">
+            <a class="btn btn-primary" asp-action="Create">Create New</a>
+        </div>
+    </div>
+    <br />
+    <div>
+        @if (Model.Count() > 0)
+        {
+            <table class="table table-striped border">
+                <tr class="table-secondary">
+                    <th>
+                        @Html.DisplayNameFor(m => m.TermsANDPolicy)
+                    </th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(m => item.TermsANDPolicy)
+                        </td>
+                        <td style="width:200px">
+                            <div class="btn-group" role="group">
+                                <a class="btn btn-info" asp-action="Edit" asp-route-id="@item.ID"> <i class="fa fa-edit"></i></a>
+                                &nbsp;<a class="btn btn-primary" asp-action="Details" asp-route-id="@item.ID"> <i class="fa fa-list"></i></a>
+                                &nbsp;<a class="btn btn-danger" asp-action="Delete" asp-route-id="@item.ID"> <i class="fa fa-trash"></i></a>
+                            </div>
+                        </td>
+
+                    </tr>
+                }
+            </table>
+        }
+        else
+        {
+            <p>No Terms exists...</p>
+        }
+    </div>
+</div>
+
